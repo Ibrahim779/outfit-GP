@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ClotheController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::resource('clothes', ClotheController::class)->only(['index', 'store']);
+
+    Route::get('logout', [LoginController::class, 'destroy']);
 });
+
+Route::post('login', [LoginController::class, 'store']);
+
+Route::post('register', [RegisterController::class, 'store']);
+
+Route::get('categories', [CategoryController::class, 'index']);
