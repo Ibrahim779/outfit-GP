@@ -25,8 +25,7 @@ class ClotheRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image'
+            'image' => 'required|image'
         ];
     }
 

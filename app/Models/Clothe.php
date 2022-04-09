@@ -29,7 +29,8 @@ class Clothe extends Model
 
     public function setImageAttribute($image)
     {
-        $this->attributes['image'] = FileUpload::make($image)->store('clothes');
+        if ($image)
+            $this->attributes['image'] = FileUpload::make($image)->store('clothes');
     }
 
     public function getImgAttribute()

@@ -19,6 +19,6 @@ class ClotheController extends Controller
     {
         Clothe::create($request->validated());
 
-        return response()->success(message: "Clothe Added Successfully");
+        return response()->success(message: "Added to your clothes successfully");
     }
 }
