@@ -12,18 +12,18 @@ class LoginController extends Controller
     public function store(LoginRequest $request)
     {
         if (!auth()->attempt($request->validated())) {
-            return response()->error(__('api.login-error'), 400);
+            return response()->error('Incorrect credential :(', 401);
         }
 
         $token = auth()->user()->createPlainTextToken();
 
-        return response()->success(['user' => new UserResource(auth()->user()), 'token' => $token], __('api.login-success'));
+        return response()->success(['user' => new UserResource(auth()->user()), 'token' => $token], 'Login successfully');
     }
 
     public function destroy()
     {
         auth()->user()->tokens()->delete();
 
-        return response()->success(message: __('api.logout-success'));
+        return response()->success(message: 'Logout successfully');
     }
 }

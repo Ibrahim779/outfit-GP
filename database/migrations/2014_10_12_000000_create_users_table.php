@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('gender');
             $table->string('lat')->nullable();
             $table->string('long')->nullable();
+            $table->string('otp')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

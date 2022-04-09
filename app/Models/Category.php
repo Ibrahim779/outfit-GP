@@ -22,4 +22,17 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id');
     }
+
+    public function scopeGetByGender($query, $gender)
+    {
+        if ($gender == User::FEMALE)
+           return $query->whereName('Women');
+
+        return $query->whereName('Men');
+    }
+
+    public function scopeFilter($query)
+    {
+        $query->when(request('gender'), fn($q) => $q->getByGender(request('gender')));
+    }
 }

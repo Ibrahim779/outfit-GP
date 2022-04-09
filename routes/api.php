@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\CheckOtpController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\CategoryController;
@@ -28,5 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('login', [LoginController::class, 'store']);
 
 Route::post('register', [RegisterController::class, 'store']);
+
+Route::post('check-otp', CheckOtpController::class);
 
 Route::get('categories', [CategoryController::class, 'index']);

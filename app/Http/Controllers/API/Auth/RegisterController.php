@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Events\Verification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\Auth\RegisterRequest;
 use App\Models\User;
@@ -11,8 +12,10 @@ class RegisterController extends Controller
 {
     public function store(RegisterRequest $request)
     {
-        User::create($request->validated());
+        $user = User::create($request->validated());
 
-        return response()->success(message: __('api.register-successfuly'));
+        event(new Verification($user));
+
+        return response()->success(data:['otp' => $user->otp], message: 'Register successfully');
     }
 }
