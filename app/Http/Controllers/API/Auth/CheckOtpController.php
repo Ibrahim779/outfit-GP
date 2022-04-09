@@ -22,13 +22,6 @@ class CheckOtpController extends Controller
             'otp' => null
         ]);
 
-        auth()->login($user);
-
-        $token = $user->createPlainTextToken();
-
-        return response()->success([
-            'user' => new UserResource($user),
-            'token' => $token,
-        ], message: 'Phone verified successfully');
+        return response()->success(message: 'Phone verified successfully');
     }
 }
