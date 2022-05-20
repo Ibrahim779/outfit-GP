@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace App\Http\Requests\API\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ClotheRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,11 @@ class ClotheRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'image' => 'required|image'
+            'phone' => 'required|unique:users,phone,except,id',
+            'name' => 'required|string|min:3|max:255',
+            'lat' => 'required|string|min:3|max:255',
+            'long' => 'required|string|min:3|max:255',
+            'avatar' => 'nullable|image|mimes:png,jpg|size:5000'
         ];
-    }
-
-    public function validated()
-    {
-        return array_merge([
-           'user_id' => auth()->id()    
-        ], parent::validated());
     }
 }
