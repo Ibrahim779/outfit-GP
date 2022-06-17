@@ -18,6 +18,7 @@ class CreateClothesTable extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->foreignId('subcategory_id')->nullable()->constrained('categories');
+            $table->string('category')->nullable();
             $table->string('name');
             $table->string('image')->nullable();
             $table->timestamps();

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CalendarRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CalendarRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,17 @@ class CalendarRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'outfit_id' => ['exists:outfits,id', Rule::requiredIf(!$this->calendar)],
+            'title' => ['min:3', 'max:255', Rule::requiredIf(!$this->calendar)],
+            'date' => [Rule::requiredIf(!$this->calendar)],
+            'time' => [Rule::requiredIf(!$this->calendar)],
         ];
+    }
+
+    public function validated()
+    {
+        return array_merge([
+           'user_id' => auth()->id()
+        ], parent::validated());
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OutfitRequest extends FormRequest
+class RecommendRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,8 @@ class OutfitRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
             'category_id' => 'required|exists:categories,id',
-            // 'clothes.*' => 'required',
+            'temp' => 'required'
         ];
-    }
-
-    public function validated()
-    {
-        return array_merge([
-           'user_id' => auth()->id()
-        ], parent::validated());
     }
 }

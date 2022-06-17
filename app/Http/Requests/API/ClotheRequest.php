@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ClotheRequest extends FormRequest
 {
@@ -24,15 +25,16 @@ class ClotheRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'image' => 'required|image'
+            'name' => ['string', Rule::requiredIf(!$this->clothe)],
+            'image' => ['image', Rule::requiredIf(!$this->clothe)],
+            'category' => ['string', Rule::requiredIf(!$this->clothe)]
         ];
     }
 
     public function validated()
     {
         return array_merge([
-           'user_id' => auth()->id()    
+           'user_id' => auth()->id()
         ], parent::validated());
     }
 }

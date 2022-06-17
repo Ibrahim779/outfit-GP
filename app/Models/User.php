@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->createToken($this->name . '_token')->plainTextToken;
     }
+
+    public function getImgAttribute()
+    {
+        return $this->avatar ? asset('storage/'. $this->avatar) : asset('assets/images/default.png');
+    }
 }

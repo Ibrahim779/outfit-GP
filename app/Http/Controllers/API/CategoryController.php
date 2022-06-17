@@ -11,6 +11,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return response()->success(CategoryResource::collection(Category::whereParentId(null)->filter()->get()));
+        return response()->success(CategoryResource::collection(Category::whereParentId(null)->get()));
     }
 }
